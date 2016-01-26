@@ -4,8 +4,11 @@ using System.Collections;
 public class Ball : MonoBehaviour {
 
     public bool launchedBall = false;
+    public bool inPlay;
+
     private Rigidbody rigidBall;
     private AudioSource ballSound;
+    private Vector3 ballStart;
 
 	// Use this for initialization
 	void Start ()
@@ -13,6 +16,7 @@ public class Ball : MonoBehaviour {
         ballSound = GetComponent<AudioSource>();
         rigidBall = GetComponent<Rigidbody>();
 
+        ballStart = transform.position;
         rigidBall.useGravity = false;
     }
 
@@ -26,5 +30,12 @@ public class Ball : MonoBehaviour {
         launchedBall = true;
     }
 
-    
+    public void Reset()
+    {
+        inPlay = false;
+        transform.position = ballStart;
+        rigidBall.useGravity = false;
+        rigidBall.velocity = Vector3.zero;
+        rigidBall.angularVelocity = Vector3.zero;        
+    }
 }
